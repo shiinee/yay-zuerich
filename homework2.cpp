@@ -117,25 +117,25 @@ void drawMountain(int peak_x, int peak_y, int width, int height, float lightness
 
 void mountainRange(void) {
 	// Furthest away
-	drawMountain(120, 160, 400, 270, 0.5);
-	drawMountain(-320, 160, 380, 300, 0.52);
+	drawMountain(110, 160, 400, 270, 0.34);
+	drawMountain(-320, 160, 380, 300, 0.32);
 	// A little closer
-	drawMountain(300, 130, 370, 300, 0.55);
-	drawMountain(-100, 140, 380, 300, 0.6);
+	drawMountain(300, 130, 370, 300, 0.35);
+	drawMountain(-100, 140, 380, 300, 0.4);
 	// Pretty close now
-	drawMountain(-220, 120, 350, 300, 0.63);
-	drawMountain(380, 100, 330, 300, 0.66);
+	drawMountain(-220, 120, 350, 300, 0.43);
+	drawMountain(380, 100, 330, 300, 0.46);
 	// Closest
-	drawMountain(200, 120, 320, 300, 0.7);
-	drawMountain(-20, 100, 340, 300, 0.75);
+	drawMountain(210, 120, 320, 300, 0.5);
+	drawMountain(-20, 100, 340, 300, 0.55);
 }
 
 void drawLake(int height) {
 	glBegin(GL_QUADS);
-	glColor3f(0.1, 0.6, 1.0);
+	glColor3f(0.08, 0.5, 0.8);
 	glVertex2f(-400, height);
 	glVertex2f(400, height);
-	glColor3f(0.0, 0.2, 0.5);
+	glColor3f(0.0, 0.1, 0.3);
 	glVertex2f(400, -210);
 	glVertex2f(-400, -210);
 	glEnd();
@@ -155,21 +155,21 @@ void landscape() {
 	int baseline = -130;
 
 	// Grass
-	glColor3f(0.3, 0.7, 0.1);
+	glColor3f(0.15, 0.35, 0.05);
 	drawGrass(baseline, -320, 200, 10);
-	glColor3f(0.3, 0.6, 0.05);
+	glColor3f(0.2, 0.4, 0.03);
 	drawGrass(baseline, -125, 300, 8);
-	glColor3f(0.3, 0.7, 0.1);
+	glColor3f(0.15, 0.4, 0.05);
 	drawGrass(baseline, 150, 250, 10);
-	glColor3f(0.35, 0.65, 0.05);
+	glColor3f(0.2, 0.4, 0.04);
 	drawGrass(baseline, 310, 210, 7);
 
 	// More grass
-	glColor3f(0.5, 0.8, 0.1);
+	glColor3f(0.3, 0.5, 0.06);
 	drawGrass(baseline, -240, 240, 6);
-	glColor3f(0.6, 0.9, 0.05);
-	drawGrass(baseline, 100, 150, 4);
-	glColor3f(0.5, 0.8, 0.1);
+	glColor3f(0.4, 0.6, 0.03);
+	drawGrass(baseline, 80, 150, 4);
+	glColor3f(0.3, 0.5, 0.07);
 	drawGrass(baseline, 360, 100, 5);
 
 	// Lake
