@@ -120,7 +120,23 @@ void mountainRange(void) {
 	drawMountain(380, 100, 330, 300, 0.66);
 	// Closest
 	drawMountain(200, 120, 320, 300, 0.7);
-	drawMountain(-20, 100, 320, 300, 0.75);
+	drawMountain(-20, 100, 340, 300, 0.75);
+}
+
+void drawLake() {
+	glBegin(GL_QUADS);
+	glColor3f(0.1, 0.6, 1.0);
+	glVertex2f(-400, -100);
+	glVertex2f(400, -100);
+	glColor3f(0.0, 0.3, 0.6);
+	glVertex2f(400, -185);
+	glVertex2f(-400, -185);
+	glEnd();
+}
+
+void skyline() {
+	glColor3f(0.0, 0.0, 0.0);
+	glRecti(-400, -300, 400, -180);
 }
 
 // Generate the Graphics
@@ -130,8 +146,9 @@ void displayFcn(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	backgroundGradient();
-
 	mountainRange();
+	drawLake();
+	skyline();
 
 	drawZuerichFlag(-380, 180, 100);
 	drawSwissFlag(280, 180, 100);
