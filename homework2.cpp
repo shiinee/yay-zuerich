@@ -135,15 +135,105 @@ void drawLake() {
 	glColor3f(0.1, 0.6, 1.0);
 	glVertex2f(-400, -100);
 	glVertex2f(400, -100);
-	glColor3f(0.0, 0.3, 0.6);
-	glVertex2f(400, -185);
-	glVertex2f(-400, -185);
+	glColor3f(0.0, 0.2, 0.5);
+	glVertex2f(400, -210);
+	glVertex2f(-400, -210);
+	glEnd();
+}
+
+void drawBuilding(int left_x, int top_y, int width, int height) {
+	glRecti(left_x, top_y, left_x + width, top_y - height);
+}
+
+void drawTower(int top_x, int top_y, int width, int height, int tower_height, int spire_height) {
+	GLuint tower;
+
+	// Base
+	drawBuilding(top_x - width/2, top_y - tower_height, width, height - tower_height);
+
+	// Tower
+	glNewList(tower, GL_COMPILE);
+	glBegin(GL_POLYGON);
+	glVertex2i(top_x - width/2, top_y - tower_height);
+	glVertex2i(top_x, top_y);
+	glVertex2i(top_x + width/2, top_y - tower_height);
+	glEnd();
+	glEndList();
+	glCallList(tower);
+
+	// Spire
+	glBegin(GL_LINES);
+	glVertex2i(top_x, top_y);
+	glVertex2i(top_x, top_y + spire_height);
+	glEnd();
+}
+
+void drawDome(int top_x, int top_y, int width, int height, int dome_height, int spire_height) {
+	// Base
+	drawBuilding(top_x - width/2, top_y - dome_height, width, height - dome_height);
+
+	// Tower
+	int center_y = top_y - dome_height;
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex2f(top_x, center_y);
+	for (int i = 0; i < 360; i++) {
+		float radians = i * M_PI / 360;
+		glVertex2f(top_x + cos(radians) * width / 2, center_y + sin(radians) * dome_height);
+	}
+	glEnd();
+
+	// Spire
+	glBegin(GL_LINES);
+	glVertex2i(top_x, top_y);
+	glVertex2i(top_x, top_y + spire_height);
 	glEnd();
 }
 
 void skyline() {
+	// Background
+	int baseline = -210;
+	glColor3f(0.2, 0.2, 0.2);
+
+	// Background buildings
+	drawBuilding(-200, baseline + 50, 30, 50);
+	drawBuilding(-155, baseline + 40, 10, 40);
+	drawBuilding(-135, baseline + 10, 30, 10);
+	drawBuilding(-100, baseline + 20, 40, 20);
+	drawBuilding(-45, baseline + 45, 30, 45);
+	drawBuilding(30, baseline + 15, 60, 15);
+	drawBuilding(120, baseline + 35, 20, 35);
+	drawBuilding(140, baseline + 25, 40, 25);
+	drawBuilding(190, baseline + 50, 20, 50);
+	drawBuilding(200, baseline + 20, 50, 20);
+
+	// Foreground
 	glColor3f(0.0, 0.0, 0.0);
-	glRecti(-400, -300, 400, -180);
+
+	// Baseline
+	glRecti(-400, -300, 400, baseline);
+
+	// Higher areas
+	drawBuilding(-400, baseline + 60, 140, 60);
+	drawBuilding(-260, baseline + 40, 60, 40);
+	drawBuilding(240, baseline + 60, 160, 60);
+
+	// Buildings on higher areas
+	drawTower(-290, baseline + 190, 60, 190, 60, 20);
+	drawTower(-220, baseline + 155, 40, 155, 50, 20);
+	drawDome(260, baseline + 165, 40, 165, 30, 15);
+	drawDome(320, baseline + 165, 40, 165, 30, 15);
+
+	// Buildings in middle area
+	drawBuilding(-180, baseline + 30, 20, 30);
+	drawBuilding(-160, baseline + 20, 20, 20);
+	drawTower(-130, baseline + 50, 20, 50, 20, 0);
+	drawBuilding(-110, baseline + 40, 30, 40);
+	drawBuilding(-65, baseline + 25, 40, 25);
+	drawBuilding(-10, baseline + 30, 50, 30);
+	drawBuilding(70, baseline + 20, 60, 20);
+	drawDome(95, baseline + 40, 30, 40, 15, 0);
+	drawTower(170, baseline + 80, 20, 80, 30, 10);
+	drawBuilding(200, baseline + 40, 30, 40);
 }
 
 // Generate the Graphics
