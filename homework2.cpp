@@ -74,10 +74,17 @@ void drawZuerichFlag(int from_x, int from_y, int size) {
 	glCallList(triangle);
 }
 
-void drawFlagpole(int from_x, int from_y, int width, int height) {
-	// Skinny black rectangle
-	glColor3f(0.0, 0.0, 0.0);
-	glRecti(from_x, from_y, from_x + width, from_y + height);
+void decorate() {
+	// Put up some awesome flags
+	drawZuerichFlag(-380, 180, 100);
+	drawSwissFlag(280, 180, 100);
+	// And a title explaining what the picture is of
+	char text[] = "ZUERICH SWITZERLAND";
+	glColor3f(1.0, 1.0, 1.0);
+	glRasterPos2i(-100, 250);
+	for (int i = 0; i < strlen(text); i++)
+		// The font Helvetica is from Switzerland, a.k.a. Confoederatio Helvetica
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
 }
 
 void drawMountain(int peak_x, int peak_y, int width, int height, float lightness) {
@@ -149,9 +156,7 @@ void displayFcn(void)
 	mountainRange();
 	drawLake();
 	skyline();
-
-	drawZuerichFlag(-380, 180, 100);
-	drawSwissFlag(280, 180, 100);
+	decorate();
 
 	// Execute OpenGL functions
 	glFlush();
