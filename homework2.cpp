@@ -26,6 +26,17 @@ void init(void)
 	gluOrtho2D(-(GLdouble)winWidth / 2, (GLdouble)winWidth / 2, -(GLdouble)winHeight / 2, (GLdouble)winHeight / 2);
 }
 
+void backgroundGradient() {
+	glBegin(GL_QUADS);
+	glColor3f(0.4, 0.5, 0.9);
+	glVertex2f(-400, 300);
+	glVertex2f(400, 300);
+	glColor3f(1.0, 0.4, 0.1);
+	glVertex2f(400, -300);
+	glVertex2f(-400, -300);
+	glEnd();
+}
+
 void drawSwissFlag(int from_x, int from_y, int size) {
 	// Red rectangle
 	// NOTE: The Swiss flag is square. So there's only one size measurement.
@@ -103,6 +114,8 @@ void displayFcn(void)
 {
 	// Clear display window.
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	backgroundGradient();
 
 	drawMountain(0, 200, 200, 200, 0.6);
 
