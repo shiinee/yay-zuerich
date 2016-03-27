@@ -32,8 +32,8 @@ void backgroundGradient() {
 	glVertex2f(-400, 300);
 	glVertex2f(400, 300);
 	glColor3f(1.0, 0.4, 0.1);
-	glVertex2f(400, -300);
-	glVertex2f(-400, -300);
+	glVertex2f(400, -100);
+	glVertex2f(-400, -100);
 	glEnd();
 }
 
@@ -108,6 +108,20 @@ void drawMountain(int peak_x, int peak_y, int width, int height, float lightness
 	glCallList(peak);
 }
 
+void mountainRange(void) {
+	// Furthest away
+	drawMountain(120, 160, 400, 270, 0.5);
+	drawMountain(-320, 160, 380, 300, 0.52);
+	// A little closer
+	drawMountain(300, 130, 370, 300, 0.55);
+	drawMountain(-100, 140, 380, 300, 0.6);
+	// Pretty close now
+	drawMountain(-220, 120, 350, 300, 0.63);
+	drawMountain(380, 100, 330, 300, 0.66);
+	// Closest
+	drawMountain(200, 120, 320, 300, 0.7);
+	drawMountain(-20, 100, 320, 300, 0.75);
+}
 
 // Generate the Graphics
 void displayFcn(void)
@@ -117,13 +131,10 @@ void displayFcn(void)
 
 	backgroundGradient();
 
-	drawMountain(0, 200, 200, 200, 0.6);
+	mountainRange();
 
-	drawZuerichFlag(-350, 50, 100);
-	drawFlagpole(-355, -200, 5, 350);
-
-	drawSwissFlag(250, 50, 100);
-	drawFlagpole(350, -200, 5, 350);
+	drawZuerichFlag(-380, 180, 100);
+	drawSwissFlag(280, 180, 100);
 
 	// Execute OpenGL functions
 	glFlush();
