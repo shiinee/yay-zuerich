@@ -37,56 +37,6 @@ void backgroundGradient() {
 	glEnd();
 }
 
-void drawSwissFlag(int from_x, int from_y, int size) {
-	// Red rectangle
-	// NOTE: The Swiss flag is square. So there's only one size measurement.
-	glColor3f(1.0, 0.0, 0.0);
-	glRecti(from_x, from_y, from_x + size, from_y + size);
-
-	// White plus (intersection of two rectangles)
-	int plus_weight = size/5;
-	int plus_left = from_x + plus_weight;
-	int plus_right = from_x + size - plus_weight;
-	int plus_top = from_y + size - plus_weight;
-	int plus_bottom = from_y + plus_weight;
-
-	glColor3f(1.0, 1.0, 1.0);
-	glRecti(plus_left, plus_bottom + plus_weight, plus_right, plus_top - plus_weight);
-	glRecti(plus_left + plus_weight, plus_bottom, plus_right - plus_weight, plus_top);
-}
-
-void drawZuerichFlag(int from_x, int from_y, int size) {
-	// White rectangle
-	// NOTE: The flag of Zuerich city is also square. Squares rock.
-	glColor3f(1.0, 1.0, 1.0);
-	glRecti(from_x, from_y, from_x + size, from_y + size);
-
-	// Blue triangle
-	glColor3f(0.0, 0.0, 1.0);
-	GLuint triangle;
-	glNewList(triangle, GL_COMPILE);
-	glBegin(GL_POLYGON);
-	glVertex2i(from_x, from_y);
-	glVertex2i(from_x + size, from_y);
-	glVertex2i(from_x, from_y + size);
-	glEnd();
-	glEndList();
-	glCallList(triangle);
-}
-
-void decorate() {
-	// Put up some awesome flags
-	drawZuerichFlag(-380, 180, 100);
-	drawSwissFlag(280, 180, 100);
-	// And a title explaining what the picture is of
-	char text[] = "ZUERICH SWITZERLAND";
-	glColor3f(1.0, 1.0, 1.0);
-	glRasterPos2i(-100, 250);
-	for (int i = 0; i < strlen(text); i++)
-		// The font Helvetica is from Switzerland, a.k.a. Confoederatio Helvetica
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
-}
-
 void drawMountain(int peak_x, int peak_y, int width, int height, float lightness) {
 	GLuint mountain, peak;
 
@@ -269,6 +219,63 @@ void skyline() {
 	drawDome(95, baseline + 40, 30, 40, 15, 0);
 	drawTower(170, baseline + 80, 20, 80, 30, 10);
 	drawBuilding(200, baseline + 40, 30, 40);
+}
+
+void drawSwissFlag(int from_x, int from_y, int size) {
+	// Red rectangle
+	// NOTE: The Swiss flag is square. So there's only one size measurement.
+	glColor3f(1.0, 0.0, 0.0);
+	glRecti(from_x, from_y, from_x + size, from_y + size);
+
+	// White plus (intersection of two rectangles)
+	int plus_weight = size/5;
+	int plus_left = from_x + plus_weight;
+	int plus_right = from_x + size - plus_weight;
+	int plus_top = from_y + size - plus_weight;
+	int plus_bottom = from_y + plus_weight;
+
+	glColor3f(1.0, 1.0, 1.0);
+	glRecti(plus_left, plus_bottom + plus_weight, plus_right, plus_top - plus_weight);
+	glRecti(plus_left + plus_weight, plus_bottom, plus_right - plus_weight, plus_top);
+}
+
+void drawZuerichFlag(int from_x, int from_y, int size) {
+	// White rectangle
+	// NOTE: The flag of Zuerich city is also square. Squares rock.
+	glColor3f(1.0, 1.0, 1.0);
+	glRecti(from_x, from_y, from_x + size, from_y + size);
+
+	// Blue triangle
+	glColor3f(0.0, 0.0, 1.0);
+	GLuint triangle;
+	glNewList(triangle, GL_COMPILE);
+	glBegin(GL_POLYGON);
+	glVertex2i(from_x, from_y);
+	glVertex2i(from_x + size, from_y);
+	glVertex2i(from_x, from_y + size);
+	glEnd();
+	glEndList();
+	glCallList(triangle);
+}
+
+void drawText(int x, int y, char* text) {
+	glRasterPos2i(x, y);
+	for (int i = 0; i < strlen(text); i++)
+		// The font Helvetica is from Switzerland, a.k.a. Confoederatio Helvetica
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
+}
+
+void decorate() {
+	// Put up some awesome flags
+	drawZuerichFlag(-380, 180, 100);
+	drawSwissFlag(280, 180, 100);
+
+	// And a title explaining what the picture is of
+	glColor3f(1.0, 1.0, 1.0);
+	char text1[] = "ZUERICH SWITZERLAND";
+	drawText(-100, 250, text1);
+	char text2[] = "MY ADOPTED HOME";
+	drawText(-83, 230, text2);
 }
 
 // Generate the Graphics
