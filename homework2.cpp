@@ -130,15 +130,50 @@ void mountainRange(void) {
 	drawMountain(-20, 100, 340, 300, 0.75);
 }
 
-void drawLake() {
+void drawLake(int height) {
 	glBegin(GL_QUADS);
 	glColor3f(0.1, 0.6, 1.0);
-	glVertex2f(-400, -100);
-	glVertex2f(400, -100);
+	glVertex2f(-400, height);
+	glVertex2f(400, height);
 	glColor3f(0.0, 0.2, 0.5);
 	glVertex2f(400, -210);
 	glVertex2f(-400, -210);
 	glEnd();
+}
+
+void drawGrass(int baseline_y, int center_x, int width, int height) {
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex2f(center_x, baseline_y);
+	for (int i = 0; i < 360; i++) {
+		float radians = i * M_PI / 360;
+		glVertex2f(center_x + cos(radians) * width / 2, baseline_y + sin(radians) * height);
+	}
+	glEnd();
+}
+
+void landscape() {
+	int baseline = -130;
+
+	// Grass
+	glColor3f(0.3, 0.7, 0.1);
+	drawGrass(baseline, -320, 200, 10);
+	glColor3f(0.3, 0.6, 0.05);
+	drawGrass(baseline, -125, 300, 8);
+	glColor3f(0.3, 0.7, 0.1);
+	drawGrass(baseline, 150, 250, 10);
+	glColor3f(0.35, 0.65, 0.05);
+	drawGrass(baseline, 310, 210, 7);
+
+	// More grass
+	glColor3f(0.5, 0.8, 0.1);
+	drawGrass(baseline, -240, 240, 6);
+	glColor3f(0.6, 0.9, 0.05);
+	drawGrass(baseline, 100, 150, 4);
+	glColor3f(0.5, 0.8, 0.1);
+	drawGrass(baseline, 360, 100, 5);
+
+	// Lake
+	drawLake(baseline);
 }
 
 void drawBuilding(int left_x, int top_y, int width, int height) {
@@ -244,7 +279,7 @@ void displayFcn(void)
 
 	backgroundGradient();
 	mountainRange();
-	drawLake();
+	landscape();
 	skyline();
 	decorate();
 
